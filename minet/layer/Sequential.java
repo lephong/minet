@@ -1,15 +1,11 @@
 package minet.layer;
 
-import minet.loss.*;
 import org.jblas.DoubleMatrix;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 public class Sequential implements Layer {
-    public Layer[] layers;
-    public Loss loss;
+    Layer[] layers;
 
     public Sequential(Layer[] layers) {
         this.layers = layers;
@@ -41,7 +37,7 @@ public class Sequential implements Layer {
     }
 
     @Override
-    public List<double[]> getAllWeights(List<double[]> weights) {
+    public List<DoubleMatrix> getAllWeights(List<DoubleMatrix> weights) {
         for (int i = 0; i < layers.length; i++) {
             layers[i].getAllWeights(weights);
         }
@@ -49,7 +45,7 @@ public class Sequential implements Layer {
     }
 
     @Override
-    public List<double[]> getAllGradients(List<double[]> grads) {
+    public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads) {
         for (int i = 0; i < layers.length; i++) {
             layers[i].getAllGradients(grads);
         }
@@ -57,9 +53,13 @@ public class Sequential implements Layer {
     }
 
     @Override
-    public void resetGradients() {
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("(\n");
         for (int i = 0; i < layers.length; i++) {
-            layers[i].resetGradients();
+            str.append("    ").append(layers[i].toString()).append("\n");
         }
+        str.append(")");
+        return str.toString();
     }
 }

@@ -10,11 +10,9 @@ public interface Layer {
 
     public DoubleMatrix backward(DoubleMatrix gY);
 
-    public List<double[]> getAllWeights(List<double[]> weights);
+    public List<DoubleMatrix> getAllWeights(List<DoubleMatrix> weights);
 
-    public List<double[]> getAllGradients(List<double[]> grads);
+    public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads);
 
     public Layer clone();
-
-    public void resetGradients();
 }

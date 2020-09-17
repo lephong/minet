@@ -41,12 +41,12 @@ public class ReLU implements Layer {
     }
 
     @Override
-    public List<double[]> getAllWeights(List<double[]> weights) {
+    public List<DoubleMatrix> getAllWeights(List<DoubleMatrix> weights) {
         return weights;
     }
 
     @Override
-    public List<double[]> getAllGradients(List<double[]> grads) {
+    public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads) {
         return grads;
     }
 
@@ -56,5 +56,7 @@ public class ReLU implements Layer {
     }
 
     @Override
-    public void resetGradients() { }
+    public String toString() {
+        return "ReLU";
+    }
 }

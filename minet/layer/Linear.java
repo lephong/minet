@@ -1,6 +1,5 @@
 package minet.layer;
 
-import minet.loss.CrossEntropy;
 import org.jblas.*;
 
 import java.util.List;
@@ -8,13 +7,13 @@ import java.util.List;
 public class Linear implements Layer {
 
     // W and b
-    public DoubleMatrix W;  // indims x outdims
-    public DoubleMatrix b;  // outdims
+    DoubleMatrix W;  // indims x outdims
+    DoubleMatrix b;  // outdims
 
     // for backward
-    public DoubleMatrix X;
-    public DoubleMatrix gW;
-    public DoubleMatrix gb;
+    DoubleMatrix X;
+    DoubleMatrix gW;
+    DoubleMatrix gb;
 
     public interface WeightInit {
         public DoubleMatrix generate(int indims, int outdims);
@@ -97,22 +96,21 @@ public class Linear implements Layer {
     }
 
     @Override
-    public List<double[]> getAllWeights(List<double[]> weights) {
-        weights.add(this.W.data);
-        weights.add(this.b.data);
+    public List<DoubleMatrix> getAllWeights(List<DoubleMatrix> weights) {
+        weights.add(this.W);
+        weights.add(this.b);
         return weights;
     }
 
     @Override
-    public List<double[]> getAllGradients(List<double[]> grads) {
-        grads.add(this.gW.data);
-        grads.add(this.gb.data);
+    public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads) {
+        grads.add(this.gW);
+        grads.add(this.gb);
         return grads;
     }
 
     @Override
-    public void resetGradients() {
-        this.gW.fill(0);
-        this.gb.fill(0);
+    public String toString() {
+        return String.format("Linear: %d in, %d out", this.W.rows, this.W.columns);
     }
 }
