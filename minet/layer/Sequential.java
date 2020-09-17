@@ -3,12 +3,25 @@ package minet.layer;
 import minet.loss.*;
 import org.jblas.DoubleMatrix;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+
 public class Sequential implements Layer {
     public Layer[] layers;
     public Loss loss;
 
     public Sequential(Layer[] layers) {
         this.layers = layers;
+    }
+
+    @Override
+    public Layer clone() {
+        Sequential newSeq = new Sequential(new Layer[this.layers.length]);
+        for (int i = 0; i < this.layers.length; i++) {
+            newSeq.layers[i] = layers[i].clone();
+        }
+        return newSeq;
     }
 
     @Override
@@ -27,44 +40,26 @@ public class Sequential implements Layer {
         return dY;
     }
 
-    public static void main(String[] args) {
-        DoubleMatrix X = new DoubleMatrix(
-                new double[][] {
-                        {.1f, .1f, .1f, .6f, .1f},
-                        {.5f, .1f, .2f, .1f, .1f},
-                        {.1f, .2f, .2f, .1f, .4f}});
-        int[] labels = new int[] {2, 0, 1};
-        Sequential net = new Sequential(new Layer[] {new Softmax()});
-        DoubleMatrix Yhat = net.forward(X);
-        CrossEntropy loss = new CrossEntropy(labels, Yhat);
-        DoubleMatrix dY = loss.backward();
-        DoubleMatrix dX = net.backward(dY);
-
-        // check gradient
-        double eps = (double) 1e-7;
-        boolean pass = true;
-
-        for (int i = 0; i < X.rows; i++) {
-            for (int j = 0; j < X.columns; j++) {
-                CrossEntropy pLoss = new CrossEntropy(labels,
-                        net.forward(X.dup().put(i, j, X.get(i, j) + eps)));
-                CrossEntropy nLoss = new CrossEntropy(labels,
-                        net.forward(X.dup().put(i, j, X.get(i, j) - eps)));
-
-                double diff = Math.abs(dX.get(i, j) - (pLoss.lossVal - nLoss.lossVal) / (2 * eps));
-                if (diff > 1e-6) {
-                    System.out.println(diff);
-                    pass = false;
-                    break;
-                }
-            }
+    @Override
+    public List<double[]> getAllWeights(List<double[]> weights) {
+        for (int i = 0; i < layers.length; i++) {
+            layers[i].getAllWeights(weights);
         }
-
-        if (pass)
-            System.out.println("correct backward");
-        else
-            System.err.println("incorrect forward");
-
+        return weights;
     }
 
+    @Override
+    public List<double[]> getAllGradients(List<double[]> grads) {
+        for (int i = 0; i < layers.length; i++) {
+            layers[i].getAllGradients(grads);
+        }
+        return grads;
+    }
+
+    @Override
+    public void resetGradients() {
+        for (int i = 0; i < layers.length; i++) {
+            layers[i].resetGradients();
+        }
+    }
 }

@@ -2,6 +2,8 @@ package minet.layer;
 
 import org.jblas.*;
 
+import java.util.List;
+
 public class ReLU implements Layer {
 
     // for backward
@@ -37,5 +39,22 @@ public class ReLU implements Layer {
 
         return gX;
     }
-    
+
+    @Override
+    public List<double[]> getAllWeights(List<double[]> weights) {
+        return weights;
+    }
+
+    @Override
+    public List<double[]> getAllGradients(List<double[]> grads) {
+        return grads;
+    }
+
+    @Override
+    public Layer clone() {
+        return new ReLU();
+    }
+
+    @Override
+    public void resetGradients() { }
 }

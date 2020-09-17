@@ -2,6 +2,8 @@ package minet.layer;
 
 import org.jblas.*;
 
+import java.util.List;
+
 public class Sigmoid implements Layer {
 
     // for backward
@@ -22,5 +24,23 @@ public class Sigmoid implements Layer {
         // gX = gY . (Y . (1 - Y))
         return gY.mul(this.Y.mul(this.Y.rsub(1)));
     }
-    
+
+    @Override
+    public List<double[]> getAllWeights(List<double[]> weights) {
+        return weights;
+    }
+
+    @Override
+    public List<double[]> getAllGradients(List<double[]> grads) {
+        return grads;
+    }
+
+    @Override
+    public Layer clone() {
+        return new Sigmoid();
+    }
+
+    @Override
+    public void resetGradients() { }
+
 }
