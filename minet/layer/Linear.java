@@ -1,21 +1,40 @@
+// File: Linear.java
+// Linear layer
 package minet.layer;
 
 import org.jblas.*;
 
 import java.util.List;
 
+/**
+ * This is a class for linear layers
+ *
+ * @author Phong Le
+ */
+
 public class Linear implements Layer {
 
-    // W and b
-    DoubleMatrix W;  // indims x outdims
-    DoubleMatrix b;  // outdims
+    DoubleMatrix W;  // weight matrix
+    DoubleMatrix b;  // bias vector
 
     // for backward
-    DoubleMatrix X;
-    DoubleMatrix gW;
-    DoubleMatrix gb;
+    DoubleMatrix X;   // store input X for computing backward
+    DoubleMatrix gW;  // gradient of W
+    DoubleMatrix gb;  // gradient of b
+
+    /**
+     * This is an interface for initialising weights
+     *
+     * @author Phong Le
+     */
 
     public interface WeightInit {
+        /**
+         * generate a weight matrix
+         * @param indims is the number of rows
+         * @param outdims is the number of columns
+         * @return a weight matrix
+         */
         public DoubleMatrix generate(int indims, int outdims);
     }
 
