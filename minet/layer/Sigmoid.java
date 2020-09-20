@@ -1,9 +1,16 @@
+// File: Sigmoid.java
+// Sigmoid layer
 package minet.layer;
 
 import org.jblas.*;
 
 import java.util.List;
 
+/**
+ * A class for sigmoid layers {@literal y = 1 / (1 + exp(-x))}.
+ *
+ * @author Phong Le
+ */
 public class Sigmoid implements Layer {
 
     // for backward
@@ -33,11 +40,6 @@ public class Sigmoid implements Layer {
     @Override
     public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads) {
         return grads;
-    }
-
-    @Override
-    public Layer clone() {
-        return new Sigmoid();
     }
 
     @Override

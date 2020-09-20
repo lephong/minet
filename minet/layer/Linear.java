@@ -7,11 +7,10 @@ import org.jblas.*;
 import java.util.List;
 
 /**
- * This is a class for linear layers
+ * A class for linear layers (Y = XW + b)
  *
  * @author Phong Le
  */
-
 public class Linear implements Layer {
 
     DoubleMatrix W;  // weight matrix
@@ -23,21 +22,25 @@ public class Linear implements Layer {
     DoubleMatrix gb;  // gradient of b
 
     /**
-     * This is an interface for initialising weights
+     * An interface for weight initialization.
      *
      * @author Phong Le
      */
-
     public interface WeightInit {
         /**
-         * generate a weight matrix
-         * @param indims is the number of rows
-         * @param outdims is the number of columns
-         * @return a weight matrix
+         * Generate a weight matrix.
+         * @param indims the number of rows
+         * @param outdims the number of columns
+         * @return an [indims x outdims] matrix
          */
         public DoubleMatrix generate(int indims, int outdims);
     }
 
+    /**
+     * Generate a weight matrix from a uniform distribution U(minVal, maxVal)
+     *
+     * @author Phong Le
+     */
     public static class WeightInitUniform implements  WeightInit {
         double minVal, maxVal;
 
@@ -52,6 +55,11 @@ public class Linear implements Layer {
         }
     }
 
+    /**
+     * Generate a weight matrix from a normal distribution N(mean, std).
+     *
+     * @author Phong Le
+     */
     public static class WeightInitNorm implements  WeightInit {
         double mean, std;
 
@@ -66,6 +74,12 @@ public class Linear implements Layer {
         }
     }
 
+    /**
+     * Generate a weight matrix using Xavier's method (
+     * see <a href="http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf">paper, equation 10</a>).
+     *
+     * @author Phong Le
+     */
     public static class WeightInitXavier implements  WeightInit {
 
         public WeightInitXavier() { }
@@ -88,10 +102,6 @@ public class Linear implements Layer {
     public Linear(DoubleMatrix W, DoubleMatrix b) {
         this.W = W;
         this.b = b;
-    }
-
-    public Layer clone() {
-        return new Linear(this.W.dup(), this.b.dup());
     }
 
     @Override

@@ -10,7 +10,6 @@ import minet.util.Pair;
 import org.jblas.DoubleMatrix;
 
 import java.io.IOException;
-import java.util.Random;
 
 
 public class MNISTClassifier {

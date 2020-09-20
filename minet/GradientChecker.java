@@ -1,3 +1,5 @@
+// File: GradientChecker.java
+// GradientChecker class
 package minet;
 
 import minet.layer.*;
@@ -10,16 +12,31 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * GradientChecker class. This class is to make sure that backward functions
+ * (e.g. {@link Linear#backward(DoubleMatrix)}
+ * correctly compute gradients.
+ * See <a href="http://ufldl.stanford.edu/tutorial/supervised/DebuggingGradientChecking/">this</a>.
+ * @author Phong Le
+ */
 public class GradientChecker {
 
-    public static void checkGradient(Sequential net, Loss loss, DoubleMatrix X, DoubleMatrix Y) {
+    /**
+     *
+     * @param net a neural network
+     * @param loss a loss function
+     * @param X a minibatch_size x input_dims matrix
+     * @param Y a minibatch_size-row matrix which is the ground-truth of X.
+     */
+    public static void checkGradient(Layer net, Loss loss, DoubleMatrix X, DoubleMatrix Y) {
+        /* forward and backward to compute the gradients r.t. X and Y */
         loss.forward(Y, net.forward(X));
         DoubleMatrix dX = net.backward(loss.backward());
 
-        // check gradient (input)
         double eps = 1e-7;
-        boolean pass = true;
 
+        /* checking that dL/dX is computed correctly */
+        boolean pass = true;
         for (int i = 0; i < X.rows; i++) {
             for (int j = 0; j < X.columns; j++) {
                 double pLoss = loss.forward(Y,
@@ -40,7 +57,7 @@ public class GradientChecker {
         else
             System.err.println("incorrect forward for input");
 
-        // check gradient (weights)
+        /* checking that dL/dW is computed correctly */
         pass = true;
         List<DoubleMatrix> weights = net.getAllWeights(new LinkedList<DoubleMatrix>());
         ListIterator<DoubleMatrix> wIter = weights.listIterator();
@@ -73,6 +90,9 @@ public class GradientChecker {
             System.err.println("incorrect forward for weights");
     }
 
+    /**
+     * Create a classification test.
+     */
     public static void test1() {
         DoubleMatrix X = new DoubleMatrix(
                 new double[][] {
@@ -94,6 +114,9 @@ public class GradientChecker {
         checkGradient(net, loss, X, Y);
     }
 
+    /**
+     * Create a regression test.
+     */
     public static void test2() {
         DoubleMatrix X = new DoubleMatrix(
                 new double[][] {

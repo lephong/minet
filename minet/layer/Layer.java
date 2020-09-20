@@ -1,5 +1,5 @@
 // File: Layer.java
-// Interface for all layers.
+// An interface for all layers.
 package minet.layer;
 
 import org.jblas.*;
@@ -7,38 +7,40 @@ import org.jblas.*;
 import java.util.List;
 
 /**
- * This is an interface for all layers
+ * An interface for all layers.
  *
  * @author Phong Le
  */
-
 public interface Layer {
 
     /**
-     * computing the output of applying the layer to the input.
-     * @param X is a DoubleMatrix [minibatch_size x input_dims]
-     * @return the resulting of applying the layer to input X [minibatch_size x output_dims]
+     * Computing the output of applying the layer to input X, i.e. Y = Layer(X).
+     * @param X a [minibatch_size x input_dims] matrix, each row is an input instance
+     * @return a [minibatch_size x output_dims] matrix, each row is the output of the corresponding instance
      */
     public DoubleMatrix forward(DoubleMatrix X);
 
     /**
-     * computing the gradient of the layer's parameters and
-     * @param gY is a DoubleMatrix
-     * @return the resulting of applying backward to gY
+     * Computing the gradient of the layer's parameters and the input
+     * when applying {@link forward}.
+     * @param gY a [minibatch_size x output_dims] matrix, each row is dL/dY
+     * @return a [minibatch_size x input_dims] matrix, each row is dL/dX
+     * where L is a loss function (@see {@link minet.loss.Loss}).
      */
     public DoubleMatrix backward(DoubleMatrix gY);
 
     /**
-     * collect all weight matrices and bias vectors
-     * @param weights is list DoubleMatrix (is updated accordingly)
-     * @return a list of DoubleMatrix
+     * Collect all the weight matrices and bias vectors of the layer.
+     * @param weights a list of matrices (updated accordingly)
+     * @return the same list.
      */
     public List<DoubleMatrix> getAllWeights(List<DoubleMatrix> weights);
 
     /**
-     * collect the gradients of all weight matrices and bias vectors
-     * @param grads is list DoubleMatrix (is updated accordingly)
-     * @return a list of DoubleMatrix
+     * Collect the gradients of all the weight matrices and bias vectors
+     * of the layer.
+     * @param grads a list of matrices  (updated accordingly)
+     * @return the same list.
      */
     public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads);
 

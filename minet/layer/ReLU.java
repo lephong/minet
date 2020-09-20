@@ -1,9 +1,16 @@
+// File: ReLU.java
+// ReLU layer
 package minet.layer;
 
 import org.jblas.*;
 
 import java.util.List;
 
+/**
+ * A class for ReLU layers (rectified linear unit) {@literal y = x if x > 0 else 0}.
+ *
+ * @author Phong Le
+ */
 public class ReLU implements Layer {
 
     // for backward
@@ -48,11 +55,6 @@ public class ReLU implements Layer {
     @Override
     public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads) {
         return grads;
-    }
-
-    @Override
-    public Layer clone() {
-        return new ReLU();
     }
 
     @Override

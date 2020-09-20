@@ -1,10 +1,18 @@
+// File: Softmax.java
+// Softmax layer
+
 package minet.layer;
 
-import minet.loss.CrossEntropy;
 import org.jblas.*;
 
 import java.util.List;
 
+
+/**
+ * A class for softmax layers {@literal y[i] = exp(x[i]) / sum_j exp(x[j])}.
+ *
+ * @author Phong Le
+ */
 public class Softmax implements Layer {
 
     // for backward
@@ -37,11 +45,6 @@ public class Softmax implements Layer {
     @Override
     public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads) {
         return grads;
-    }
-
-    @Override
-    public Layer clone() {
-        return new Softmax();
     }
 
     @Override

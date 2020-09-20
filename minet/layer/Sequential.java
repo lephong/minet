@@ -1,23 +1,25 @@
+// File: Sequential.java
+// Sequential
+
 package minet.layer;
 
 import org.jblas.DoubleMatrix;
 
 import java.util.List;
 
+
+/**
+ * A sequential container, containing a sequence of layers.
+ * For example: a sequential object with the list of layers
+ * [Linear, ReLU, Linear, Softmax] is equivalent to
+ * {@literal X=X1 -> Linear -> X2 -> ReLU -> X3 -> Linear -> X4 -> Softmax -> Y=X5}
+ * @author Phong Le
+ */
 public class Sequential implements Layer {
     Layer[] layers;
 
     public Sequential(Layer[] layers) {
         this.layers = layers;
-    }
-
-    @Override
-    public Layer clone() {
-        Sequential newSeq = new Sequential(new Layer[this.layers.length]);
-        for (int i = 0; i < this.layers.length; i++) {
-            newSeq.layers[i] = layers[i].clone();
-        }
-        return newSeq;
     }
 
     @Override

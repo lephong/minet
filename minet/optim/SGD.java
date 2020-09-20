@@ -1,3 +1,5 @@
+// File: SGD.java
+// SGD class
 package minet.optim;
 
 import minet.layer.Layer;
@@ -7,6 +9,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
+
+/**
+ * SGD (stochastic gradient descent) class
+ * @author Phong Le
+ */
 public class SGD implements Optimizer {
     List<DoubleMatrix> weights;
     List<DoubleMatrix> grads;
@@ -21,6 +28,10 @@ public class SGD implements Optimizer {
         net.getAllGradients(this.grads);
     }
 
+    /**
+     * Set learning rate.
+     * @param lr a double
+     */
     public void setLearningRate(double lr) {
         this.lr = lr;
     }

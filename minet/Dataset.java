@@ -1,17 +1,19 @@
+// File: Dataset.java
+// Dataset class
 package minet;
 
 import minet.util.Pair;
 import org.jblas.DoubleMatrix;
-import org.jblas.ranges.IntervalRange;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Random;
-import java.util.stream.Stream;
 
+/**
+ * Dataset class for holding a set of (x, y) instances.
+ * @author Phong Le
+ */
 public class Dataset {
 
     int currIndex;
@@ -24,6 +26,20 @@ public class Dataset {
         this.currIndex = 0;
     }
 
+    /**
+     * Loading instances stored in a txt file, whose format is as follows.
+     *
+     * <pre>
+     * First Line: [number_of_instances] [x_dims] [y_dims] # if the task is classification, y_dims is always 1
+     * regardless to the number of categories.
+     *
+     * Each following line: [x_dims float numbers seperated by a space] ; [y_dims float numbers seperated by a space]
+     * </pre>
+     *
+     * @param path a string, the path of the txt file.
+     * @return a Dataset
+     * @throws IOException
+     */
     public static Dataset loadTxt(String path) throws IOException {
         // first line: [number of samples] [xDims] [yDims]
         // each line of file : [entries of X] ; [entries of Y]
@@ -53,10 +69,16 @@ public class Dataset {
         return new Dataset(X, Y);
     }
 
+    /**
+     * Must be called before each epoch to reset the minibatch iteration.
+     */
     public void reset() {
         this.currIndex = 0;
     }
 
+    /**
+     * Get the number of the instances stored.
+     */
     public int getSize() {
         return X.length;
     }
@@ -69,6 +91,9 @@ public class Dataset {
         return Y[0].length;
     }
 
+    /**
+     * Should be called before each epoch.
+     */
     public void shuffle() {
         Random rnd = new Random();
         for (int i = this.getSize() - 1; i > 0; i--)
@@ -86,6 +111,10 @@ public class Dataset {
         this.currIndex = 0;
     }
 
+    /**
+     * Get a minibatch.
+     * @return a pair of X and Y
+     */
     public Pair<DoubleMatrix> getNextMiniBatch(int batchsize) {
         int start = this.currIndex;
         int end = Math.min(start + batchsize, this.getSize());

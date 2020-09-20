@@ -1,13 +1,25 @@
+// File: CrossEntropy.java
+// CrossEntropy class
 package minet.loss;
 
 import org.jblas.DoubleMatrix;
 
+/**
+ * A class for computing cross entropy loss
+ * @author Phong Le
+ */
 public class CrossEntropy implements Loss {
     DoubleMatrix Yhat;
     int[] labels;
 
     public CrossEntropy() { }
 
+    /**
+     * Compute a loss value given groud-truth Y and estimate Yhat
+     * @param Y a [minibatch_size x 1] matrix, each row is the ground-truth label of an instance
+     * @param Yhat a [minibatch_size x d] matrix, each row is a distribution over the category set
+     * @return a double
+     */
     @Override
     public double forward(DoubleMatrix Y, DoubleMatrix Yhat) {
         this.Yhat = Yhat.dup();
