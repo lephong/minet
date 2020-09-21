@@ -4,7 +4,7 @@ In this tutorial, we will build a handwritten digit recognizer using
 [MNIST dataset](http://yann.lecun.com/exdb/mnist/). 
 The source code is available in the file `mnit.example.MNISTClassifier.java`. 
   
-##1. Preparing data
+## 1. Preparing data
 We need a text file with the following format
 
     [n = Number of instances] [dx = dims of x] [dy = dims of y]
@@ -32,7 +32,7 @@ Assuming that the train/dev/test datasets are stored at
     ../data/mnist/mnist_dev.txt
     ../data/mnist/mnist_test.txt
 
-##2. Loading the data
+## 2. Loading the data
 We use the class `minet.Dataset` to store datasets and 
 iterator over mini-batches. 
 
@@ -40,7 +40,7 @@ iterator over mini-batches.
     Dataset devset = Dataset.loadTxt("../data/mnist/mnist_test.txt");
     Dataset testset = Dataset.loadTxt("../data/mnist/mnist_test.txt");
 
-##3. Buiding an MLNN
+## 3. Buiding an MLNN
 We build a one-hidden-layer neural network classifier: 
 - The input layer has 784 nodes, corresponding to 784 dims of x. 
 - The hidden layer has 1176 nodes, with ReLU activation function.
@@ -73,6 +73,6 @@ we print out the structure of the network and the loss
     System.out.println(net);
     System.out.println(loss);
     
-##4. Training the network
+## 4. Training the network
 Training the network requires to ha
 
