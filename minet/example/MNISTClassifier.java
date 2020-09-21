@@ -74,13 +74,9 @@ public class MNISTClassifier {
 
         // generate datasets
         System.out.println("loading data...");
-        Dataset[] datasets = loadDatasets(
-                "/Users/lphong/workspace/minet/data/mnist/mnist_train.txt",
-                "/Users/lphong/workspace/minet/data/mnist/mnist_test.txt",
-                "/Users/lphong/workspace/minet/data/mnist/mnist_test.txt");
-        Dataset trainset = datasets[0];
-        Dataset devset = datasets[1];
-        Dataset testset = datasets[2];
+        Dataset trainset = Dataset.loadTxt("/Users/lphong/workspace/minet/data/mnist/mnist_train.txt");
+        Dataset devset = Dataset.loadTxt("/Users/lphong/workspace/minet/data/mnist/mnist_test.txt");
+        Dataset testset = Dataset.loadTxt("/Users/lphong/workspace/minet/data/mnist/mnist_test.txt");
 
         // create network
         System.out.println("creating network...");
