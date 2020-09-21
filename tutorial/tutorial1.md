@@ -49,15 +49,15 @@ Because the task is classification,
 we use a softmax to compute a distribution over 
 the 10 digits. 
 
-
-    int indims = trainset.getInputDims();  # get the dims of x (784)
-    int outdims = 10;  # there are 10 digits (i.e. 10 categories)
-    Sequential net = new Sequential(new Layer[] {
-            new Linear(indims, (int) 1.5 * indims, new Linear.WeightInitXavier()),
-            new ReLU(),
-            new Linear((int) 1.5 * indims, outdims, new Linear.WeightInitXavier()),
-            new Softmax()});
-            
+```
+int indims = trainset.getInputDims();  # get the dims of x (784)
+int outdims = 10;  # there are 10 digits (i.e. 10 categories)
+Sequential net = new Sequential(new Layer[] {
+        new Linear(indims, (int) 1.5 * indims, new Linear.WeightInitXavier()),
+        new ReLU(),
+        new Linear((int) 1.5 * indims, outdims, new Linear.WeightInitXavier()),
+        new Softmax()});
+```
 We use cross-entropy loss to train the network
 
     CrossEntropy loss = new CrossEntropy();
