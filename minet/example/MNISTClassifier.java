@@ -14,10 +14,7 @@ import java.io.IOException;
 
 public class MNISTClassifier {
 
-    public static double eval(Layer net,
-                              Dataset data,
-                              int batchsize
-    ) {
+    public static double eval(Layer net, Dataset data, int batchsize) {
         data.reset();
         double correct = 0;
 
@@ -86,13 +83,16 @@ public class MNISTClassifier {
         int patience = 5;
 
         // generate datasets
-        System.out.println("loading data...");
+        System.out.println("========= loading data ========");
         Dataset trainset = Dataset.loadTxt("/Users/lphong/workspace/minet/data/mnist/mnist_train.txt");
-        Dataset devset = Dataset.loadTxt("/Users/lphong/workspace/minet/data/mnist/mnist_test.txt");
+        Dataset devset = Dataset.loadTxt("/Users/lphong/workspace/minet/data/mnist/mnist_dev.txt");
         Dataset testset = Dataset.loadTxt("/Users/lphong/workspace/minet/data/mnist/mnist_test.txt");
+        System.out.printf("train: %d instances\n", trainset.getSize());
+        System.out.printf("dev: %d instances\n", devset.getSize());
+        System.out.printf("test: %d instances\n", testset.getSize());
 
         // create network
-        System.out.println("creating network...");
+        System.out.println("========== creating network ===========");
         int indims = trainset.getInputDims();
         int hiddims = 1000;
         int outdims = 10;
@@ -107,7 +107,11 @@ public class MNISTClassifier {
         System.out.println(loss);
 
         // train network
-        System.out.println("training...");
+        System.out.println("=========== training ===========");
         train(net, loss, sgd, trainset, devset, batchsize, nEpochs, patience);
+
+        // perform on test set
+        System.out.println("============ test ============");
+        eval(net, testset, batchsize);
     }
 }

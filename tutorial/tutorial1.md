@@ -2,7 +2,7 @@
 
 In this tutorial, we will build a handwritten digit recognizer using 
 [MNIST dataset](http://yann.lecun.com/exdb/mnist/). 
-The source code is available in the file `mnit.example.MNISTClassifier.java`. 
+The source code is available in `minet.example.MNISTClassifier.java`. 
   
 ## Preparing data
 We need a text file with the following format
@@ -30,7 +30,8 @@ There are 60000 images (x) with size 28x28. The first image is digit 5.
 Note that for classification, the dimensionality of y is always 1 regardless to 
 the number of categories. 
 
-Assuming that the train/dev/test datasets are stored at 
+Assuming that the train/dev/test datasets are stored at
+(can be downloaded [here](https://drive.google.com/file/d/18bMdvTD77QX9O1iuqHU4JEb1RAbvj6-c/view?usp=sharing)) 
 
 ```
 ../data/mnist/mnist_train.txt
@@ -39,7 +40,7 @@ Assuming that the train/dev/test datasets are stored at
 ```
 
 ## Loading the data
-We use the class `minet.Dataset` to store datasets and 
+We use `minet.Dataset` to store datasets and 
 iterator over mini-batches. 
 
 ```java
@@ -58,7 +59,7 @@ we use a softmax to compute a distribution over
 the 10 digits. 
 
 ```java
-int indims = trainset.getInputDims();  # get the dims of x (784)
+int indims = trainset.getInputDims();  // get the dims of x (784)
 int hiddims = 1000; 
 int outdims = 10;  # there are 10 digits (i.e. 10 categories)
 Sequential net = new Sequential(new Layer[] {
@@ -134,10 +135,10 @@ public static double eval(Layer net,
 ## Training the network
 We train the network by updating its weights after processing 
 each mini-batch. After each epoch, we evaluate the current weights
-on a development set. If the accuracy is not at pick `patience` times 
+on a development set. If the accuracy is not at peak `patience` times 
 consecutively, we halt the training (this is an 
 [early stopping](https://en.wikipedia.org/wiki/Early_stopping)
-stragety).
+strategy).
 
 Note:
 - always *shuffle* the training data before each epoch,
@@ -189,8 +190,11 @@ public static void train(Layer net, Loss loss, Optimizer optimizer, Dataset trai
 
 The output should look like
 ```
-loading data...
-creating network...
+========= loading data ========
+train: 50000 instances
+dev: 10000 instances
+test: 10000 instances
+========== creating network ===========
 (
     Linear: 784 in, 1000 out
     ReLU
@@ -198,35 +202,90 @@ creating network...
     Softmax
 )
 CrossEntropyLoss
-training...
+=========== training ===========
 ------------ epoch 0 ----------
-total loss: 161.838046
-accuracy 0.955700 
+total loss: 136.829351
+accuracy 0.951700 
 ------------ epoch 1 ----------
-total loss: 53.715121
-accuracy 0.963900 
+total loss: 45.750841
+accuracy 0.961100 
 ------------ epoch 2 ----------
-total loss: 34.836546
-accuracy 0.965000 
+total loss: 29.472297
+accuracy 0.965200 
 ------------ epoch 3 ----------
-total loss: 24.944736
-accuracy 0.967700 
+total loss: 20.324394
+accuracy 0.968300 
 ------------ epoch 4 ----------
-total loss: 17.495233
-accuracy 0.968100 
+total loss: 14.152240
+accuracy 0.971400 
 ------------ epoch 5 ----------
-total loss: 12.456065
-accuracy 0.972000 
+total loss: 10.319242
+accuracy 0.971500 
 ------------ epoch 6 ----------
-total loss: 8.450051
-accuracy 0.972100 
+total loss: 6.680812
+accuracy 0.971400 
+not at peak 1 times consecutively
 ------------ epoch 7 ----------
-total loss: 5.996042
-accuracy 0.972900 
+total loss: 4.706697
+accuracy 0.971600 
 ------------ epoch 8 ----------
-total loss: 3.632146
+total loss: 2.783578
+accuracy 0.972000 
+------------ epoch 9 ----------
+total loss: 1.675059
+accuracy 0.972900 
+------------ epoch 10 ----------
+total loss: 1.176078
+accuracy 0.972300 
+not at peak 1 times consecutively
+------------ epoch 11 ----------
+total loss: 0.878074
+accuracy 0.972800 
+not at peak 2 times consecutively
+------------ epoch 12 ----------
+total loss: 0.737296
+accuracy 0.972700 
+not at peak 3 times consecutively
+------------ epoch 13 ----------
+total loss: 0.622528
+accuracy 0.972300 
+not at peak 4 times consecutively
+------------ epoch 14 ----------
+total loss: 0.548826
+accuracy 0.973000 
+------------ epoch 15 ----------
+total loss: 0.490137
 accuracy 0.972800 
 not at peak 1 times consecutively
+------------ epoch 16 ----------
+total loss: 0.451574
+accuracy 0.972600 
+not at peak 2 times consecutively
+------------ epoch 17 ----------
+total loss: 0.409661
+accuracy 0.973400 
+------------ epoch 18 ----------
+total loss: 0.378742
+accuracy 0.972800 
+not at peak 1 times consecutively
+------------ epoch 19 ----------
+total loss: 0.354350
+accuracy 0.973300 
+not at peak 2 times consecutively
+------------ epoch 20 ----------
+total loss: 0.332934
+accuracy 0.973000 
+not at peak 3 times consecutively
+------------ epoch 21 ----------
+total loss: 0.312668
+accuracy 0.973300 
+not at peak 4 times consecutively
+------------ epoch 22 ----------
+total loss: 0.293429
+accuracy 0.973100 
+not at peak 5 times consecutively
+============ test ============
+accuracy 0.974200 
 ```
 
 ## Exercise 
