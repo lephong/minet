@@ -14,15 +14,10 @@ import java.io.IOException;
 
 public class MNISTClassifier {
 
-    public static Dataset[] loadDatasets(String train, String dev, String test) throws IOException {
-        Dataset[] datasets = new Dataset[] {
-                Dataset.loadTxt(train),
-                Dataset.loadTxt(dev),
-                Dataset.loadTxt(test)};
-        return datasets;
-    }
-
-    public static double eval(Layer net, Dataset data, int batchsize) {
+    public static double eval(Layer net,
+                              Dataset data,
+                              int batchsize
+    ) {
         data.reset();
         double correct = 0;
 
@@ -43,12 +38,16 @@ public class MNISTClassifier {
         return acc;
     }
 
-    public static void train(Layer net, Loss loss, Optimizer optimizer,
-                             Dataset traindata, Dataset devdata,
-                             int batchsize, int nEpochs) {
+    public static void train(Layer net, Loss loss, Optimizer optimizer, Dataset traindata,
+                             Dataset devdata, int batchsize, int nEpochs, int patience) {
+        int notAtPeak = 0;
+        double peakAcc = -1;
+        double totalLoss = 0;
+
         for (int e = 0; e < nEpochs; e++) {
             System.out.printf("------------ epoch %d ----------\n", e);
             traindata.shuffle();
+            totalLoss = 0;
 
             while (true) {
                 Pair<DoubleMatrix> batch = traindata.getNextMiniBatch(batchsize);
@@ -56,14 +55,27 @@ public class MNISTClassifier {
                     break;
 
                 optimizer.resetGradients();
-                double lossVal = loss.forward(batch.second, net.forward(batch.first));
+                DoubleMatrix Yhat = net.forward(batch.first);
+                double lossVal = loss.forward(batch.second, Yhat);
                 net.backward(loss.backward());
                 optimizer.updateWeights();
 
                 System.out.printf("loss: %f\r", lossVal);
+                totalLoss += lossVal;
             }
-            System.out.printf("\n");
+            System.out.printf("total loss: %f\n", totalLoss);
+
             double acc = eval(net, devdata, batchsize);
+            if (acc < peakAcc) {
+                notAtPeak += 1;
+                System.out.printf("not at peak %d times consecutively\n", notAtPeak);
+            }
+            else {
+                notAtPeak = 0;
+                peakAcc = acc;
+            }
+            if (notAtPeak == patience)
+                break;
         }
     }
 
@@ -71,6 +83,7 @@ public class MNISTClassifier {
         double learningRate = 1;
         int batchsize = 100;
         int nEpochs = 100;
+        int patience = 5;
 
         // generate datasets
         System.out.println("loading data...");
@@ -81,11 +94,12 @@ public class MNISTClassifier {
         // create network
         System.out.println("creating network...");
         int indims = trainset.getInputDims();
+        int hiddims = 1000;
         int outdims = 10;
         Sequential net = new Sequential(new Layer[] {
-                new Linear(indims, (int) 1.5 * indims, new Linear.WeightInitXavier()),
+                new Linear(indims, hiddims, new Linear.WeightInitXavier()),
                 new ReLU(),
-                new Linear((int) 1.5 * indims, outdims, new Linear.WeightInitXavier()),
+                new Linear(hiddims, outdims, new Linear.WeightInitXavier()),
                 new Softmax()});
         CrossEntropy loss = new CrossEntropy();
         Optimizer sgd = new SGD(net, learningRate);
@@ -94,6 +108,6 @@ public class MNISTClassifier {
 
         // train network
         System.out.println("training...");
-        train(net, loss, sgd, trainset, devset, batchsize, nEpochs);
+        train(net, loss, sgd, trainset, devset, batchsize, nEpochs, patience);
     }
 }
