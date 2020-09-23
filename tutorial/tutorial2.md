@@ -63,7 +63,10 @@ public DoubleMatrix backward(DoubleMatrix gY) {
     return gY.mmul(this.W.transpose());
 }
 ```
-
+Note that `A.addi(B)` is to add `B` directly to `A`. It means that in the code, `this.gW` and 
+`this.gb` are updated with the new gradients. This is because one might want to keep the gradients
+which have been computed before. In our case, as we don't need that, we have to reset the gradients 
+(by preforming `resetGradients`) before calling `backward`.
 
 ## Loss class
 
