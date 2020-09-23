@@ -1,11 +1,34 @@
 # Tutorial 1: Building a multi-layer neural network (MLNN)
 
 In this tutorial, we will build a handwritten digit recognizer using 
-[MNIST dataset](http://yann.lecun.com/exdb/mnist/). 
+[MNIST](http://yann.lecun.com/exdb/mnist/) dataset. 
 The source code is available in `minet.example.MNISTClassifier.java`. 
   
 ## Preparing data
-We need a text file with the following format
+We already prepared the dataset, which can be download 
+[here](https://drive.google.com/file/d/1gt_4SVD97E-XAiLkuWFpwXtZ5LLwiX6h/view?usp=sharing).
+There are three files 
+```
+mnist_train.txt
+mnist_dev.txt
+mnist_test.txt
+```
+Each file starts with a line telling us `n` - the number of instances in that file,
+`dx` - the dimensionality of images, and `dy` - the dimensionality of labels (always 1 for 
+classification). Each subsequent line contains `dx` float numbers representing an image, 
+followed by the ground-truth digit of that image. For instance, the training file is
+
+```
+50000 784 1 
+0.0 ... 0.9921568627450981 0.9921568627450981 ... 0.0 ; 5
+...
+0.0 ... 0.24313725490196078 0.3176470588235294 ... 0.0 ; 4
+...
+```
+meaning that it contains 50000 instances, each image is represented by 784 floats. 
+The first image is digit 5.
+
+In general, the format is 
 
 ```
 [n = Number of instances] [dx = dims of x] [dy = dims of y]
@@ -13,30 +36,6 @@ We need a text file with the following format
 ...
 [dx floats, separated by " "] ; [dy floats, separated by " "]
 ...
-```
-
-For instance, we represent the MNIST data as follows 
-(pixel values are normalized)
-
-```
-60000 784 1 
-0.0 ... 0.9921568627450981 0.9921568627450981 ... 0.0 ; 5
-...
-0.0 ... 0.24313725490196078 0.3176470588235294 ... 0.0 ; 4
-...
-```
-  
-There are 60000 images (x) with size 28x28. The first image is digit 5. 
-Note that for classification, the dimensionality of y is always 1 regardless to 
-the number of categories. 
-
-Assuming that the train/dev/test datasets are stored at
-(can be downloaded [here](https://drive.google.com/file/d/1gt_4SVD97E-XAiLkuWFpwXtZ5LLwiX6h/view?usp=sharing)) 
-
-```
-../data/mnist/mnist_train.txt
-../data/mnist/mnist_dev.txt
-../data/mnist/mnist_test.txt
 ```
 
 ## Loading the data
