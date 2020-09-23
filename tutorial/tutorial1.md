@@ -289,7 +289,10 @@ accuracy 0.974200
 
 ## Exercise 
 
-Select a dataset from [here](https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/)
+1. Try different network architectures and hyper-parameters (e.g. the number of hidden layers, 
+activation functions, the loss function, the learning rate).
+
+1. Select a dataset from [here](https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/)
 and build a neural network. 
-*You might need to convert the data to correct format
+*You might need to convert the data to the correct format that
 mentioned above.*
