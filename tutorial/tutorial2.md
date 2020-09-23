@@ -1,8 +1,8 @@
 # Tutorial 2: Adding a new layer and a loss function
 
 The purpose of this tutorial is to get used to implementing layers and 
-loss functions
-using matrix notations. 
+loss functions using matrix notations and [jblas](http://jblas.org/)
+functions.
 
 *Note that: following [pytorch](pytorch.org) and several other deep learning 
 libraries, an instance is represented by a *row* vector. 
@@ -30,7 +30,7 @@ public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads);
 Let's look at the implement of class `minet.layer.Linear`
 (see [here](http://cs231n.stanford.edu/handouts/linear-backprop.pdf)
 for mathematical details).
-A linear layer contains a weight matrix `W` and bias row vector `b`.
+A linear layer contains a weight matrix `W` and a bias row vector `b`.
 Given a matrix X whose each row is an instance x. The forward is 
 to compute
 ```
@@ -44,6 +44,8 @@ public DoubleMatrix forward(DoubleMatrix X) {
     return Y;
 }
 ```
+Here, firstly we perform  `X * W` (matrix multiplication) by `X.mmul(this.W)`. 
+We then add `b` to every row of the resulting matrix by `addiRowVector(this.b)`.
 
 Now, assuming that we have computed a loss `l` as a function of `Y`, and 
 `dl/dY` (each row is gradient row vector `dl/dy`). 
