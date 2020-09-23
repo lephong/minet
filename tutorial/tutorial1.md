@@ -61,7 +61,7 @@ the 10 digits.
 ```java
 int indims = trainset.getInputDims();  // get the dims of x (784)
 int hiddims = 1000; 
-int outdims = 10;  # there are 10 digits (i.e. 10 categories)
+int outdims = 10;  // there are 10 digits (i.e. 10 categories)
 Sequential net = new Sequential(new Layer[] {
         new Linear(indims, hiddims, new Linear.WeightInitXavier()),
         new ReLU(),
@@ -99,7 +99,7 @@ For classification, we evaluate the network using accuracy metric
 public static double eval(Layer net,
                           Dataset data,
                           int batchsize) {
-    data.reset();  # always reset before use 
+    data.reset();  // always reset before use 
     double correct = 0;  // for counting how many predictions are correct
 
     // we process every mini-batch

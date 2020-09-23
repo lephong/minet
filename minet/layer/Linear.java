@@ -114,7 +114,7 @@ public class Linear implements Layer {
 
     @Override
     public DoubleMatrix backward(DoubleMatrix gY) {
-        // gW = gX^T * gY 
+        // gW = X^T * gY
         this.gW.addi(this.X.transpose().mmul(gY));
 
         // gb = sum_row gY
