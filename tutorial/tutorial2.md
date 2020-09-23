@@ -55,7 +55,7 @@ dl/dW = X^T * dl/dY
 dl/db = sum_row dl/dY
 dl/dX = dl/dY * W^T
 ```
-turning to java language:
+Turning that to java language, we have
 ```java
 public DoubleMatrix backward(DoubleMatrix gY) {
     this.gW.addi(this.X.transpose().mmul(gY));
