@@ -291,4 +291,6 @@ accuracy 0.974200
 ## Exercise 
 
 Select a dataset from [here](https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/)
-and build a neural network.
+and build a neural network. 
+*You might need to convert the data to correct format
+mentioned above.*

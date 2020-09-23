@@ -84,9 +84,16 @@ public class MNISTClassifier {
 
         // generate datasets
         System.out.println("========= loading data ========");
-        Dataset trainset = Dataset.loadTxt("/Users/lphong/workspace/minet/data/mnist/mnist_train.txt");
-        Dataset devset = Dataset.loadTxt("/Users/lphong/workspace/minet/data/mnist/mnist_dev.txt");
-        Dataset testset = Dataset.loadTxt("/Users/lphong/workspace/minet/data/mnist/mnist_test.txt");
+        if (args.length == 0) {
+            args = new String[] {
+                    "/Users/lphong/workspace/minet/data/mnist/mnist_train.txt",
+                    "/Users/lphong/workspace/minet/data/mnist/mnist_dev.txt",
+                    "/Users/lphong/workspace/minet/data/mnist/mnist_test.txt"
+            };
+        }
+        Dataset trainset = Dataset.loadTxt(args[0]);
+        Dataset devset = Dataset.loadTxt(args[1]);
+        Dataset testset = Dataset.loadTxt(args[2]);
         System.out.printf("train: %d instances\n", trainset.getSize());
         System.out.printf("dev: %d instances\n", devset.getSize());
         System.out.printf("test: %d instances\n", testset.getSize());
