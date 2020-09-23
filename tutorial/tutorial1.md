@@ -31,7 +31,7 @@ Note that for classification, the dimensionality of y is always 1 regardless to
 the number of categories. 
 
 Assuming that the train/dev/test datasets are stored at
-(can be downloaded [here](https://drive.google.com/file/d/18bMdvTD77QX9O1iuqHU4JEb1RAbvj6-c/view?usp=sharing)) 
+(can be downloaded [here](https://drive.google.com/file/d/1gt_4SVD97E-XAiLkuWFpwXtZ5LLwiX6h/view?usp=sharing)) 
 
 ```
 ../data/mnist/mnist_train.txt
@@ -45,7 +45,7 @@ iterator over mini-batches.
 
 ```java
 Dataset trainset = Dataset.loadTxt("../data/mnist/mnist_train.txt");    // 50k images
-Dataset devset = Dataset.loadTxt("../data/mnist/mnist_test.txt");       // 10k images
+Dataset devset = Dataset.loadTxt("../data/mnist/mnist_dev.txt");       // 10k images
 Dataset testset = Dataset.loadTxt("../data/mnist/mnist_test.txt");      // 10k images
 ```
 
