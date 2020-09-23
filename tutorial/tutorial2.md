@@ -72,16 +72,15 @@ which have been computed before. In our case, as we don't need that, we have to 
 
 A loss class is an implementation of interface `minet.loss.Loss`. Similar to 
 a layer class, we have to implement forward and backward
-(note that the output of forward is a scalar rather than a matrix, 
-and backward doesn't need to take `dl/dY` as input)
 ```java
 public double forward(DoubleMatrix Y, DoubleMatrix Yhat);
 public DoubleMatrix backward();
 ```
-
-
-The difference is that a loss class doesn't contain any weights, thus 
-we don't need to collect its weights and gradients.
+The differences are
+- the output of forward is a scalar rather than a matrix, 
+and backward doesn't need to take `dl/dY` as input, 
+- a loss class doesn't contain any weights, thus 
+we don't need to collect weights and gradients.
 
 
 ## Excercise
