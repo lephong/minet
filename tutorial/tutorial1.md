@@ -1,7 +1,7 @@
 # Tutorial 1: Building a multi-layer neural network (MLNN)
 
-In this tutorial, we will build a handwritten digit recognizer using 
-[MNIST](http://yann.lecun.com/exdb/mnist/) dataset. 
+In this tutorial, we will walk the reader step by step how to build (train and test) 
+a handwritten digit recognizer using [MNIST](http://yann.lecun.com/exdb/mnist/) dataset.
 The source code is available in `minet.example.MNISTClassifier.java`. 
   
 ## Preparing data
