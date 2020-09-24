@@ -76,7 +76,7 @@ public class Linear implements Layer {
 
     /**
      * Generate a weight matrix using Xavier's method (
-     * see <a href="http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf">paper, equation 10</a>).
+     * see <a href="http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf">paper, equation 16</a>).
      *
      * @author Phong Le
      */
