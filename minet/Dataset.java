@@ -116,15 +116,15 @@ public class Dataset {
      * @return a pair of X and Y
      */
     public Pair<DoubleMatrix> getNextMiniBatch(int batchsize) {
-        int start = this.currIndex;
-        int end = Math.min(start + batchsize, this.getSize());
-        this.currIndex = end;
-
-        if (this.currIndex >= this.getSize()) {
+    	if (this.currIndex >= this.getSize()) {
             this.currIndex = 0;
             return null;
         }
-
+    	
+        int start = this.currIndex;
+        int end = Math.min(start + batchsize, this.getSize());
+        this.currIndex = end;
+      
         double[][] bX = new double[end - start][getInputDims()];
         double[][] bY = new double[end - start][getInputDims()];
         for (int i = start; i < end; i++) {
