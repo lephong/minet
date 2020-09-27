@@ -93,7 +93,7 @@ public class GradientChecker {
     /**
      * Create a classification test.
      */
-    public static void test1() {
+    public static void test2() {
         DoubleMatrix X = new DoubleMatrix(
                 new double[][] {
                         {.1f, .1f, .1f, .6f, .1f},
@@ -117,7 +117,7 @@ public class GradientChecker {
     /**
      * Create a regression test.
      */
-    public static void test2() {
+    public static void test1() {
         DoubleMatrix X = new DoubleMatrix(
                 new double[][] {
                         {.1f, .1f, .1f, .6f, .1f},
@@ -127,12 +127,9 @@ public class GradientChecker {
                 {2., 0.},
                 {-0.1, 5.},
                 {3., -1.2}});
-        Sequential net = new Sequential(new Layer[] {
-                new Linear(5, 10, new Linear.WeightInitUniform(-1, 1)),
-                new Sigmoid(),
-                new Linear(10, 20, new Linear.WeightInitUniform(-1, 1)),
-                new ReLU(),
-                new Linear(20, 2, new Linear.WeightInitUniform(-1, 1))});
+        Sequential net = new Sequential(new Layer[]{
+                new Linear(5, 2, new Linear.WeightInitUniform(-1, 1))
+        });
         MeanSquaredError loss = new MeanSquaredError();
 
         System.out.println(net);

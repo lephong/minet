@@ -30,6 +30,8 @@ public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads);
 Let's look at the implement of class `minet.layer.Linear`
 (see [here](http://cs231n.stanford.edu/handouts/linear-backprop.pdf)
 for mathematical details).
+
+### Forward
 A linear layer contains a weight matrix `W` and a bias row vector `b`.
 Given a matrix X whose each row is an instance x. The forward is 
 to compute
@@ -47,6 +49,11 @@ public DoubleMatrix forward(DoubleMatrix X) {
 Here, firstly we perform  `X * W` (matrix multiplication) by `X.mmul(this.W)`. 
 We then add `b` to every row of the resulting matrix by `addiRowVector(this.b)`.
 
+To confirm the correctness of the function, we can compare its output 
+against the implementation of some well-known deep learning library e.g. PyTorch, 
+Tensorflow. Or, we can use math software e.g. Matlab.
+
+### Backward
 Now, assuming that we have computed a loss `l` as a function of `Y`, and 
 `dl/dY` (each row is gradient row vector `dl/dy`). 
 The backward is to compute  
@@ -67,6 +74,53 @@ Note that `A.addi(B)` is to add `B` directly to `A`. It means that in the code, 
 `this.gb` are updated with the new gradients. This is because one might want to keep the gradients
 which have been computed before. In our case, as we don't need that, we have to reset the gradients 
 (by preforming `optimizer.resetGradients()`) before calling `backward`.
+
+A common way to make sure that the backward function is correct is to perform 
+[gradient checking](http://deeplearning.stanford.edu/tutorial/supervised/DebuggingGradientChecking/), 
+which is to compare the computed gradients against their numerical approximate. 
+*Note that this kind of checking requires high precision; hence, `double` 
+is used.*
+
+Performing gradient checking is easy thanks to `minet.GradientChecker`. 
+Two examples are given in `minet.GradientChecker.Test1` and `Test2`.
+```java
+public static void test1() {
+    // some instances (input X and output Y)
+    DoubleMatrix X = new DoubleMatrix(
+            new double[][] {
+                    {.1f, .1f, .1f, .6f, .1f},
+                    {.5f, .1f, .2f, .1f, .1f},
+                    {.1f, .2f, .2f, .1f, .4f}});
+    DoubleMatrix Y = new DoubleMatrix(new double[][] {
+            {2., 0.},
+            {-0.1, 5.},
+            {3., -1.2}});
+
+    // create a network that contains only the layer needed to be checked
+    Sequential net = new Sequential(new Layer[]{
+            new Linear(5, 2, new Linear.WeightInitUniform(-1, 1))
+    });
+
+    // we use MSE loss as it is confirmed to be correct
+    MeanSquaredError loss = new MeanSquaredError();
+
+    System.out.println(net);
+    System.out.println(loss);
+
+    // gradient check
+    checkGradient(net, loss, X, Y);
+}
+```
+If we see the output
+```
+(
+    Linear: 5 in, 2 out
+)
+MeanSquareErrorLoss
+correct backward for input
+correct backward for weights
+```
+our backward implementation passed the gradient checking test. 
 
 ## Loss class
 

@@ -39,7 +39,7 @@ public class CrossEntropy implements Loss {
     public DoubleMatrix backward() {
         DoubleMatrix dY = DoubleMatrix.zeros(this.Yhat.rows, this.Yhat.columns);
         for (int i = 0; i < this.labels.length; i++) {
-            dY.put(i, this.labels[i], -1 / (this.Yhat.get(i, this.labels[i])+1e-7));
+            dY.put(i, this.labels[i], -1 / (this.Yhat.get(i, this.labels[i]) + 1e-7));
         }
         return dY.divi(dY.rows);
     }
