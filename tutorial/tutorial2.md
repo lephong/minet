@@ -141,3 +141,5 @@ we don't need to collect weights and gradients.
 1. Implement a layer class for [tanh activation function](https://en.wikipedia.org/wiki/Activation_function).
 
 2. Implement a loss class for [Hinge loss](https://en.wikipedia.org/wiki/Hinge_loss).  
+
+*(Don't forget to use gradient checking!)*
