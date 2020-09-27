@@ -22,7 +22,7 @@ public class ReLU implements Layer {
     public DoubleMatrix forward(DoubleMatrix X) {
         this.X = X.dup();
 
-        // Y[i] = max(0, X[i])
+        // Y[i,j] = max(0, X[i,j])
         DoubleMatrix Y = X.dup();
         for (int i = 0; i < Y.rows; i++) {
             for (int j = 0; j < Y.columns; j++) {
@@ -35,7 +35,7 @@ public class ReLU implements Layer {
 
     @Override
     public DoubleMatrix backward(DoubleMatrix gY) {
-        // gX[i] = 0 if X[i] <= 0 0 else gY[i]
+        // gX[i,j] = 0 if X[i,j] <= 0 0 else gY[i,j]
         DoubleMatrix gX = gY.dup();
         for (int i = 0; i < gX.rows; i++) {
             for (int j = 0; j < gX.columns; j++) {
