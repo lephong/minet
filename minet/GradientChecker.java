@@ -55,7 +55,7 @@ public class GradientChecker {
         if (pass)
             System.out.println("correct backward for input");
         else
-            System.err.println("incorrect forward for input");
+            System.err.println("incorrect backward for input");
 
         /* checking that dL/dW is computed correctly */
         pass = true;
@@ -87,7 +87,7 @@ public class GradientChecker {
         if (pass)
             System.out.println("correct backward for weights");
         else
-            System.err.println("incorrect forward for weights");
+            System.err.println("incorrect backward for weights");
     }
 
     /**
