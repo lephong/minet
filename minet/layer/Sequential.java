@@ -24,9 +24,12 @@ public class Sequential implements Layer {
 
     @Override
     public DoubleMatrix forward(DoubleMatrix X) {
+    	//System.out.print("\n");
         for (int i = 0; i < layers.length; i++) {
             X = layers[i].forward(X);
+            //System.out.print(X.mean() + " ");
         }
+        //System.out.print("\n");
         return X;
     }
 

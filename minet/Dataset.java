@@ -94,8 +94,7 @@ public class Dataset {
     /**
      * Should be called before each epoch.
      */
-    public void shuffle() {
-        Random rnd = new Random();
+    public void shuffle(Random rnd) {               
         for (int i = this.getSize() - 1; i > 0; i--)
         {
             int index = rnd.nextInt(i + 1);
@@ -109,6 +108,11 @@ public class Dataset {
             Y[index] = tmp;
         }
         this.currIndex = 0;
+    }
+    
+    
+    public void shuffle() {
+    	this.shuffle(new Random());
     }
 
     /**
@@ -125,12 +129,12 @@ public class Dataset {
         int end = Math.min(start + batchsize, this.getSize());
         this.currIndex = end;
       
-        double[][] bX = new double[end - start][getInputDims()];
-        double[][] bY = new double[end - start][getInputDims()];
+        double[][] bX = new double[end - start][];
+        double[][] bY = new double[end - start][];
         for (int i = start; i < end; i++) {
             bX[i - start] = X[i];
             bY[i - start] = Y[i];
-        }
+        }        
 
         return new Pair<DoubleMatrix>(
                 new DoubleMatrix(bX),
