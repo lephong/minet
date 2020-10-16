@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Phong Le
  */
-public class Softmax implements Layer {
+public class Softmax implements Layer, java.io.Serializable {	
 
     // for backward
     DoubleMatrix Y;
@@ -40,7 +40,7 @@ public class Softmax implements Layer {
     @Override
     public List<DoubleMatrix> getAllWeights(List<DoubleMatrix> weights) {
         return weights;
-    }
+    }       
 
     @Override
     public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads) {
