@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Phong Le
  */
-public class ReLU implements Layer {
+public class ReLU implements Layer, java.io.Serializable {
 
     // for backward
     DoubleMatrix X; 
@@ -50,7 +50,7 @@ public class ReLU implements Layer {
     @Override
     public List<DoubleMatrix> getAllWeights(List<DoubleMatrix> weights) {
         return weights;
-    }
+    }    
 
     @Override
     public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads) {

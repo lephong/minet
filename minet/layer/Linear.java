@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Phong Le
  */
-public class Linear implements Layer {
+public class Linear implements Layer, java.io.Serializable {		
 
     DoubleMatrix W;  // weight matrix
     DoubleMatrix b;  // bias vector

@@ -34,7 +34,7 @@ public interface Layer {
      * @param weights a list of matrices (updated accordingly)
      * @return the same list.
      */
-    public List<DoubleMatrix> getAllWeights(List<DoubleMatrix> weights);
+    public List<DoubleMatrix> getAllWeights(List<DoubleMatrix> weights);      
 
     /**
      * Collect the gradients of all the weight matrices and bias vectors

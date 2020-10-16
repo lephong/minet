@@ -15,8 +15,9 @@ import java.util.List;
  * {@literal X=X1 -> Linear -> X2 -> ReLU -> X3 -> Linear -> X4 -> Softmax -> Y=X5}
  * @author Phong Le
  */
-public class Sequential implements Layer {
-    Layer[] layers;
+public class Sequential implements Layer, java.io.Serializable {
+	
+    Layer[] layers;         
 
     public Sequential(Layer[] layers) {
         this.layers = layers;

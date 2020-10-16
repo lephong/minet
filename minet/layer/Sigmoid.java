@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Phong Le
  */
-public class Sigmoid implements Layer {
+public class Sigmoid implements Layer, java.io.Serializable {
 
     // for backward
     DoubleMatrix Y;
@@ -35,7 +35,7 @@ public class Sigmoid implements Layer {
     @Override
     public List<DoubleMatrix> getAllWeights(List<DoubleMatrix> weights) {
         return weights;
-    }
+    } 
 
     @Override
     public List<DoubleMatrix> getAllGradients(List<DoubleMatrix> grads) {
