@@ -30,9 +30,11 @@ public class MeanSquaredError implements Loss {
             for (int i = 0; i < Y.rows; i++) {
                 this.Y.put(i, (int)Y.get(i,0), 1);
             }
-    	}      
+    	} else {
+    		this.Y = Y.dup();
+    	}
         this.Yhat = Yhat.dup();
-        return MatrixFunctions.powi(Y.sub(Yhat), 2.).columnSums().sum() / Y.rows;
+        return MatrixFunctions.powi(this.Y.sub(Yhat), 2.).columnSums().sum() / this.Y.rows;
     }
 
     @Override
