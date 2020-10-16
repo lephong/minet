@@ -17,7 +17,9 @@ import java.util.List;
  */
 public class Sequential implements Layer, java.io.Serializable {
 	
-    Layer[] layers;         
+	private static final long serialVersionUID = 2172439814486831959L;
+	
+	Layer[] layers;         
 
     public Sequential(Layer[] layers) {
         this.layers = layers;

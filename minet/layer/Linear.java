@@ -11,9 +11,11 @@ import java.util.List;
  *
  * @author Phong Le
  */
-public class Linear implements Layer, java.io.Serializable {		
+public class Linear implements Layer, java.io.Serializable {			
 
-    DoubleMatrix W;  // weight matrix
+	private static final long serialVersionUID = -10435336293457306L;
+	
+	DoubleMatrix W;  // weight matrix
     DoubleMatrix b;  // bias vector
 
     // for backward

@@ -13,7 +13,8 @@ import java.util.List;
  */
 public class ReLU implements Layer, java.io.Serializable {
 
-    // for backward
+	private static final long serialVersionUID = 6243622144246414861L;
+	// for backward
     DoubleMatrix X; 
     
     public ReLU() {}

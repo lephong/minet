@@ -15,7 +15,9 @@ import java.util.List;
  */
 public class Softmax implements Layer, java.io.Serializable {	
 
-    // for backward
+	private static final long serialVersionUID = 8714215486185502826L;
+	
+	// for backward
     DoubleMatrix Y;
     
     public Softmax() {}
