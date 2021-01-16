@@ -24,4 +24,7 @@ Therefore, a linear layer is Y = XW + b rather than Y = WX + b.
 - [jblas](http://jblas.org/) (tested with v. 1.2.4)
 
 ## Tutorial
-Checkout tutorials in folder `tutorial`.
+Two tutorials are given in folder [`tutorial`](./tutorial/).
+
+## Document
+Checkout [`doc`](./doc/).
