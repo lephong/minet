@@ -1,0 +1,7 @@
+minet.data
+minet.example.mnist
+minet.layer
+minet.layer.init
+minet.loss
+minet.optim
+minet.util
